@@ -59,6 +59,7 @@
         "tsutils",
         "typeof",
         "webassemblyjs",
+        "webfonts",
         "xtuc",
         "yargs"
     ]
