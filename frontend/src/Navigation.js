@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { useHistory } from "react-router";
 import { CurrentUser } from './contexts/CurrentUser';
 
@@ -11,12 +11,12 @@ function Navigation() {
     let loginActions = (
         <>
             <li style={{ float: 'right' }}>
-                <a href="#" onClick={() => history.push("/sign-up")}>
+                <a href="/sign-up" onClick={() => history.push("/sign-up")}>
                     Sign Up
                 </a>
             </li>
             <li style={{ float: 'right' }}>
-                <a href="#" onClick={() => history.push("/login")}>
+                <a href="/login" onClick={() => history.push("/login")}>
                     Login
                 </a>
             </li>
@@ -30,25 +30,36 @@ function Navigation() {
             </li>
         )
     }
+    let addPlaceButton = null
 
+    if (currentUser?.role === 'admin') {
+        addPlaceButton = (
+            <li>
+                <a href="/places/new" onClick={() => history.push("/places/new")}>
+                    Add Place
+                </a>
+            </li>
+        )
+    }
     return (
         <nav>
             <ul>
                 <li>
-                    <a href="#" onClick={() => history.push("/")}>
+                    <a href="/" onClick={() => history.push("/")}>
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="#" onClick={() => history.push("/places")}>
+                    <a href="/places" onClick={() => history.push("/places")}>
                         Places
                     </a>
                 </li>
                 <li>
-                    <a href="#" onClick={() => history.push("/places/new")}>
+                    <a href="/places/new" onClick={() => history.push("/places/new")}>
                         Add Place
                     </a>
                 </li>
+                {addPlaceButton}
                 {loginActions}
             </ul>
         </nav>
