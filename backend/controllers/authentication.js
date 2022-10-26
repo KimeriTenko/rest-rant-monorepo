@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const db = require("../models")
 const bcrypt = require('bcrypt')
-const { response } = require('express')
+const jwt =require('jwt')
+// const { response } = require('express')
 
 const { User } = db
 
@@ -14,17 +15,18 @@ router.post('/', async (req, res) => {
     if (!user || !await bcrypt.compare(req.body.password, user.passwordDigest)) {
         res.status(404).json({ message: `Could not find a user with the provided username and password` })
     } else {
-        req.session.userId = user.userId
-        res.json({ user })
+        const result = await jwt.encode(process.env.JWT_SECRET, { id: user.userId })
+        // req.session.userId = user.userId
+        res.json({ user, token: result.value })
     }
 })
 
 router.get('/profile', async (req, res) => {
     try {
         let user = await User.findOne({
-            where: {
-                userId:  
-            }
+            // where: {
+            //     userId:  
+            // }
         })
         res.json(user)
     } catch {

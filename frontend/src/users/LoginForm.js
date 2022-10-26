@@ -29,12 +29,13 @@ function LoginForm() {
         const data = await response.json()
 
         if (response.status === 200) {
-            console.log("SETTING USER")
             setCurrentUser(data.user)
+            // console.log("SETTING USER")
+            console.log(data.token)
             history.push(`/`)
         } else {
-            console.log("USER LOGIN FAILURE")
             setErrorMessage(data.message)
+            console.log("USER LOGIN FAILURE")
         }
     }
 
