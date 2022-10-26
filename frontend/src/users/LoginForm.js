@@ -19,7 +19,7 @@ function LoginForm() {
         e.preventDefault()
         const response = await fetch(`http://localhost:5001/authentication/`, {
             method: 'POST',
-            credentials: 'include',
+            // credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -29,9 +29,11 @@ function LoginForm() {
         const data = await response.json()
 
         if (response.status === 200) {
+            console.log("SETTING USER")
             setCurrentUser(data.user)
             history.push(`/`)
         } else {
+            console.log("USER LOGIN FAILURE")
             setErrorMessage(data.message)
         }
     }
